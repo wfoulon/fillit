@@ -136,26 +136,6 @@ size_t		ft_valid_form(char *str, size_t i)
 	return (0);
 }
 
-size_t		ft_count(char *str, size_t (f)(char *, size_t i))
-{
-	size_t	i;
-	size_t	count;
-
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		printf("check count: %lu\ni = %lu\n", count, i);
-		printf("check (f): %lu\n", f(str, i));
-		if (f(str, i) == 0)
-			count++;
-		while (str[i] != '\n' || (str[i + 1] != '\n' && str[i + 1] != '\0'))
-			i++;
-		i += 2;
-	}
-	return (count);
-}
-
 
 
 

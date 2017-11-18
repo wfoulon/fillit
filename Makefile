@@ -11,8 +11,12 @@
 #******************************************************************************#
 
 NAME		=	fillit
-SRC			=	srcs/fillit.c \
-				srcs/check_tetriminos.c
+SRC			=	srcs/main.c \
+				srcs/check_tetriminos.c \
+				srcs/parse.c \
+				srcs/ft_place.c \
+				srcs/tools.c \
+				srcs/solver.c
 OBJ			=	$(SRC:.c=.o)
 INCLUDES	=	-I libft -I includes
 LIBS		=	-L libft/ -lft
@@ -23,7 +27,8 @@ all : $(NAME)
 $(NAME):	$(OBJ)
 	@make -C libft/ re
 	@gcc -o $(NAME) $(OBJ) $(LIBS)
-	@echo "\033[32;1mfillit is ready\033[0m"
+	@echo "\t\t\033[32;1;3;4mfillit is ready\033[0m"
+	@echo "\t\033[36;1;4;3;44mLet's go baby !\033[0m"
 
 $(OBJ):	%.o: %.c
 	@gcc $(FLAGS) $(INCLUDES) -c $< -o $@
@@ -31,11 +36,11 @@ $(OBJ):	%.o: %.c
 clean:
 	@rm -f $(OBJ)
 	@make -C libft/ clean
-	@echo "\033[37mall files.o are removed\033[0m"
+	@echo "\033[35;4;3mall files.o are removed\033[0m"
 
 fclean: clean
 	@rm -f $(NAME)
 	@make -C libft/ fclean
-	@echo "\033[31m.a is deleted\033[0m"
+	@echo "\t\t\033[31;1;3;4mfillit and libft.a is deleted\033[0m"
 
 re: fclean all

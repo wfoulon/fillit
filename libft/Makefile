@@ -83,14 +83,12 @@ $(NAME):
 	@gcc -Wall -Werror -Wextra -c $(SRC) -I $(HEADER)
 	@ar rc $(NAME) $(OBJ)
 	@ranlib $(NAME)
-	@echo "\033[32;1mlibft is ready\033[0m"
+	@echo "\033[32;1;3;4mlibft is ready\033[0m"
 
 clean:
 	@rm -f $(OBJ)
-	@echo "\033[37mall files.o are removed\033[0m"
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "\033[31m$(NAME) is deleted\033[0m"
 
 re: fclean all
