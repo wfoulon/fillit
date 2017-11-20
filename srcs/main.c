@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fillit.c                                           :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clonger <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: clonger <clonger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 11:14:37 by clonger           #+#    #+#             */
-/*   Updated: 2017/11/15 11:14:37 by clonger          ###   ########.fr       */
+/*   Updated: 2017/11/20 15:39:53 by clonger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int		main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_putendl("usage: ./fillit <file name>");
+		ft_putstr("usage :	./fillit <file_name>\n	one file_name needed to \
+run fillit.\n");
 		exit(EXIT_FAILURE);
 	}
 	fd = open(argv[1], O_RDONLY);
@@ -34,17 +35,9 @@ int		main(int argc, char **argv)
 	close(fd);
 	if (!tetriminos)
 		error();
-	display(tetriminos);
-	ft_putstr("\n\nOh yeah biatch !!!!\n\n");
 	ft_parse(tetriminos);
-	display(tetriminos);
-	if (!(solution = (char *)malloc(sizeof(solution) * ft_strlen(tetriminos[0]))))
-		return (0);
-	ft_set_solution(solution, tetriminos, 0);
-	ft_put_tetris(tetriminos, solution, 0, 0);
-	ft_put_tetris(tetriminos, solution, 1, 1);
-	ft_putstr("\nThat is the solution baby !!!!\n\n");
+	solution = ft_set_solution(tetriminos);
+	ft_solve(tetriminos, solution);
 	ft_putstr(solution);
-	ft_putstr("\nAnd now the solution has been parsed !!!!\n\n");
 	return (0);
 }

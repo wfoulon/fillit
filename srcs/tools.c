@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clonger <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: clonger <clonger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/18 13:38:56 by clonger           #+#    #+#             */
-/*   Updated: 2017/11/18 13:38:56 by clonger          ###   ########.fr       */
+/*   Updated: 2017/11/20 16:14:51 by clonger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,62 +27,13 @@ void	display(char **tetriminos)
 	}
 }
 
-size_t		ft_count(char *str, size_t (f)(char *, size_t i))
+int		is_valid(char *buf)
 {
-	size_t	i;
-	size_t	count;
-
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		if (f(str, i) == 0)
-			count++;
-		while (str[i] != '\n' || (str[i + 1] != '\n' && str[i + 1] != '\0'))
-			i++;
-		i += 2;
-	}
-	return (count);
-}
-
-void	ft_set_solution(char *solution, char **tetriminos, int y)
-{
-	int		x;
-	int		i;
-
-	x = 0;
-	i = 0;
-	while (tetriminos[y][x])
-	{
-		if (tetriminos[y][x] != '\n')
-		{
-			solution[i] = '.';
-			i++;
-			x++;
-		}
-		else
-		{
-			solution[i] = tetriminos[y][x];
-			i++;
-			x++;
-		}
-	}
-}
-
-int		isValid(char *buf)
-{	/*
-	printf("buf: \n%s\n", buf);
-	printf("ft_check_char: %lu\n", ft_check_char(buf));
-	printf("ft_check_size: %lu\n", ft_check_size(buf));
-	printf("ft_nb_tetriminos: %lu\n", ft_nb_tetriminos(buf));
-	printf("ft_enough_char: %lu\n", ft_enough_char(buf));
-	printf("ft_valid_form: %lu\n", ft_valid_form(buf, 0));
-	printf("ft_count: %lu\n", ft_count(buf, ft_valid_form));*/
-	if (ft_check_char(buf) || ft_check_size(buf))
+	if (ft_check_char(buf) || ft_check_size(buf, 0))
 		error();
 	if (ft_nb_tetriminos(buf) >= 27 || ft_enough_char(buf))
 		error();
-	if (ft_nb_tetriminos(buf) != ft_count(buf, ft_valid_form))
+	if (ft_valid_form(buf, 0, 0))
 		error();
 	return (1);
 }
@@ -98,9 +49,8 @@ char	**ft_read(int fd)
 	j = 0;
 	if ((read(fd, buf, 546)) <= 0)
 		return (NULL);
-	if (!(isValid(buf)))
+	if (!(is_valid(buf)))
 		error();
-	// printf("It's all good\n");
 	if (!(tetriminos = (char **)malloc(sizeof(char *) * 27)))
 		return (NULL);
 	while (buf[i])

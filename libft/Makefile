@@ -33,6 +33,8 @@ SRC			=	ft_memset.c \
 				ft_isalnum.c \
 				ft_isascii.c \
 				ft_isprint.c \
+				ft_islower.c \
+				ft_isupper.c \
 				ft_toupper.c \
 				ft_tolower.c \
 				ft_memccpy.c \

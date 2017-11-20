@@ -3,45 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_place.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clonger <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: clonger <clonger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/17 12:09:29 by clonger           #+#    #+#             */
-/*   Updated: 2017/11/17 12:09:29 by clonger          ###   ########.fr       */
+/*   Updated: 2017/11/20 11:47:23 by clonger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		ft_is_placeable(char *tetriminos, char *solution, char alph, int i)
-{
-	int		result;
-	int		start;
-	size_t	x;
-	int count;
-
-	result = 1;
-	x = 0;
-	start = 0;
-	count = 0;
-	while (tetriminos[x] && result != 0)
-	{
-		if (tetriminos[x] == alph)
-		{
-			if (solution[i] != alph && solution[i] != '.')
-				result = 0;
-			if (solution[i] == '\n' || solution[i] == '\0')
-				result = 0;
-			start = 1;
-			count++;
-		}
-		if (start == 1 && count != 4)
-			i++;
-		x++;
-	}
-	return (result);
-}
-
-char	ft_find_alph(char *tetriminos)
+static char	ft_find_alph(char *tetriminos)
 {
 	int		x;
 
@@ -51,28 +22,45 @@ char	ft_find_alph(char *tetriminos)
 	return (tetriminos[x]);
 }
 
-void	ft_put_tetris(char **tetriminos, char *solution, int y, int i)
+static int	ft_where(char *tetriminos, int x, char *solution, int i)
 {
-	int		x;
+	int		j;
+	int		length;
+
+	j = 0;
+	length = 0;
+	while (solution[length] != '\n')
+		length++;
+	length++;
+	if (x >= 0 && x < 20 && i >= 0 && i < (length * (length - 1)))
+	{
+		if (ft_isalpha(tetriminos[x]) && solution[i] == '.')
+		{
+			solution[i] = tetriminos[x];
+			j++;
+			j += ft_where(tetriminos, x + 1, solution, i + 1);
+			j += ft_where(tetriminos, x + 5, solution, i + length);
+			j += ft_where(tetriminos, x - 1, solution, i - 1);
+		}
+	}
+	return (j);
+}
+
+int			ft_put_tetris(char **tetriminos, char *solution, int y, int i)
+{
 	int		go;
 	char	alph;
+	int		x;
+	int		j;
 
 	x = 0;
 	go = 0;
 	alph = ft_find_alph(tetriminos[y]);
-	if (!ft_is_placeable(tetriminos[y], solution, alph, i))
-		error();
-	else
-		printf("\nIs placeable\n");
-	while (tetriminos[y][x])
-	{
-		if (tetriminos[y][x] == alph)
-		{
-			solution[i] = alph;
-			go = 1;
-		}
-		if (go == 1)
-			i++;
+	while (!ft_isalpha(tetriminos[y][x]))
 		x++;
-	}
+	if (ft_where(tetriminos[y], x, solution, i) == 4)
+		return (0);
+	j = 0;
+	reset_solution(solution, alph);
+	return (1);
 }

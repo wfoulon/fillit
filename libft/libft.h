@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clonger <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: clonger <clonger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 17:58:08 by clonger           #+#    #+#             */
-/*   Updated: 2017/11/07 17:58:11 by clonger          ###   ########.fr       */
+/*   Updated: 2017/11/19 15:38:07 by clonger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int				ft_isascii(int c);
 int				ft_isprint(int c);
 int				ft_toupper(int c);
 int				ft_tolower(int c);
+int				ft_islower(int c);
+int				ft_isupper(int c);
 char			*ft_strnstr(const char *s1, const char *s2, size_t len);
 char			*ft_strsub(char const *s, unsigned int start, size_t len);
 char			*ft_strmapi(char const *s, char(*f)(unsigned int, char));
