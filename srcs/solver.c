@@ -6,44 +6,53 @@
 /*   By: clonger <clonger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/18 13:49:27 by clonger           #+#    #+#             */
-/*   Updated: 2017/11/20 12:55:35 by clonger          ###   ########.fr       */
+/*   Updated: 2017/11/21 14:55:00 by clonger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static int	ft_fill_solution(char **tetriminos, char *solution, size_t y)
-{
-	size_t	i;
-
-	i = 0;
-	if (!tetriminos[y])
-		return (1);
-	while (solution[i])
-	{
-		if (ft_put_tetris(tetriminos, solution, y, i))
-		{
-			i++;
-			continue ;
-		}
-		if (ft_fill_solution(tetriminos, solution, y + 1))
-			return (1);
-	}
-	return (0);
-}
-
-static char	*bigger(char *solution, size_t i)
+static char		*bigger(char **tetriminos, char *solution, size_t i)
 {
 	free(solution);
 	if (!(solution = ft_strnew((i + 2) * (i + 1))))
 		return (NULL);
 	ft_init_solution(solution, i + 1);
+	reset_all_tetriminos(tetriminos);
 	return (solution);
 }
 
-void	ft_init_solution(char *solution, size_t i)
+static int		ft_fill_solution(char **tetriminos, char **sol, size_t y)
 {
-	size_t	j;
+	size_t		i;
+	char		*sol_cpy;
+
+	i = 0;
+	if (!tetriminos[y])
+		return (1);
+	sol_cpy = ft_strdup(*sol);
+	while ((*sol)[i])
+	{
+		if (!ft_put_tetris(tetriminos, *sol, y, i))
+		{
+			i++;
+			continue ;
+		}
+		if (ft_fill_solution(tetriminos, sol, y + 1))
+		{
+			free(sol_cpy);
+			return (1);
+		}
+		free(*sol);
+		*sol = ft_strdup(sol_cpy);
+	}
+	free(sol_cpy);
+	return (0);
+}
+
+void			ft_init_solution(char *solution, size_t i)
+{
+	size_t		j;
 
 	j = 0;
 	while (j < (i + 1) * i)
@@ -57,22 +66,25 @@ void	ft_init_solution(char *solution, size_t i)
 	solution[j] = '\0';
 }
 
-void		ft_solve(char **tetriminos, char *solution)
+char			*ft_solve(char **tetriminos)
 {
-	size_t	x;
-	size_t	i;
+	size_t		y;
+	size_t		i;
+	char		*solution;
 
-	x = 0;
+	y = 0;
 	i = 0;
-	while (tetriminos[x])
-		x++;
-	x *= 4;
-	while (i * i < x)
+	while (tetriminos[y])
+		y++;
+	y *= 4;
+	while (i * i < y)
 		i++;
-	while (ft_fill_solution(tetriminos, solution, 0) == 0)
+	solution = ft_set_solution(tetriminos);
+	while (ft_fill_solution(tetriminos, &solution, 0) == 0)
 	{
-		if (!(solution = bigger(solution, i)))
-			return ;
+		if (!(solution = bigger(tetriminos, solution, i)))
+			return (NULL);
 		i++;
 	}
+	return (solution);
 }

@@ -6,21 +6,11 @@
 /*   By: clonger <clonger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/17 12:09:29 by clonger           #+#    #+#             */
-/*   Updated: 2017/11/20 11:47:23 by clonger          ###   ########.fr       */
+/*   Updated: 2017/11/21 14:34:50 by clonger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
-static char	ft_find_alph(char *tetriminos)
-{
-	int		x;
-
-	x = 0;
-	while (!ft_isalpha(tetriminos[x]))
-		x++;
-	return (tetriminos[x]);
-}
 
 static int	ft_where(char *tetriminos, int x, char *solution, int i)
 {
@@ -34,8 +24,9 @@ static int	ft_where(char *tetriminos, int x, char *solution, int i)
 	length++;
 	if (x >= 0 && x < 20 && i >= 0 && i < (length * (length - 1)))
 	{
-		if (ft_isalpha(tetriminos[x]) && solution[i] == '.')
+		if (ft_islower(tetriminos[x]) && solution[i] == '.')
 		{
+			tetriminos[x] -= 32;
 			solution[i] = tetriminos[x];
 			j++;
 			j += ft_where(tetriminos, x + 1, solution, i + 1);
@@ -48,19 +39,23 @@ static int	ft_where(char *tetriminos, int x, char *solution, int i)
 
 int			ft_put_tetris(char **tetriminos, char *solution, int y, int i)
 {
-	int		go;
+	int		j;
 	char	alph;
 	int		x;
-	int		j;
 
 	x = 0;
-	go = 0;
-	alph = ft_find_alph(tetriminos[y]);
+	j = 0;
+	alph = 'A' + y;
 	while (!ft_isalpha(tetriminos[y][x]))
 		x++;
 	if (ft_where(tetriminos[y], x, solution, i) == 4)
-		return (0);
-	j = 0;
-	reset_solution(solution, alph);
-	return (1);
+		return (1);
+	reset_tetriminos(tetriminos[y]);
+	while (solution[j])
+	{
+		if (solution[j] == alph)
+			solution[j] = '.';
+		j++;
+	}
+	return (0);
 }

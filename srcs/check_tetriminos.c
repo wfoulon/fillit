@@ -6,7 +6,7 @@
 /*   By: clonger <clonger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 16:17:23 by clonger           #+#    #+#             */
-/*   Updated: 2017/11/20 16:14:19 by clonger          ###   ########.fr       */
+/*   Updated: 2017/11/21 14:51:15 by clonger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,23 @@
 size_t		ft_check_char(char *str)
 {
 	size_t	i;
-	size_t	result;
 
 	i = 0;
-	result = 0;
-	while (str[i] && result != 1)
+	while (str[i] != '\0')
 	{
-		if (str[i] != '#' && str[i] != '.' && str[i] != '\n')
-			result = 1;
-		i++;
+		if (str[i] == '#' || str[i] == '.' || str[i] == '\n' || str[i] == '\0')
+			i++;
+		else
+			return (0);
 	}
-	return (result);
+	return (1);
 }
 
-size_t		ft_check_size(char *str, size_t i)
+size_t		ft_check_size(char *str, size_t i, size_t j)
 {
-	size_t	j;
 	size_t	k;
 	size_t	l;
 
-	j = 0;
 	k = 0;
 	l = 4;
 	while (str[i])
@@ -48,6 +45,8 @@ size_t		ft_check_size(char *str, size_t i)
 		{
 			k++;
 			l++;
+			if ((j % k) != 0 || (j != 4 && k == 1))
+				return (1);
 		}
 		i++;
 	}
@@ -99,11 +98,9 @@ size_t		ft_enough_char(char *str)
 size_t		ft_valid_form(char *str, size_t i, size_t first)
 {
 	size_t	last;
-	size_t	mem_i;
 	size_t	count;
 
 	last = i + 16;
-	mem_i = i;
 	count = 0;
 	while (str[i])
 	{

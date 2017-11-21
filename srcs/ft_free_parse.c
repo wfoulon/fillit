@@ -6,7 +6,7 @@
 /*   By: clonger <clonger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 18:03:18 by clonger           #+#    #+#             */
-/*   Updated: 2017/11/20 12:30:23 by clonger          ###   ########.fr       */
+/*   Updated: 2017/11/21 14:47:41 by clonger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void		ft_parse(char **tetriminos)
 	char	alpha;
 
 	i = 0;
-	alpha = 'A';
+	alpha = 'a';
 	while (tetriminos[i])
 	{
 		j = 0;
@@ -34,20 +34,45 @@ void		ft_parse(char **tetriminos)
 	}
 }
 
-void		reset_solution(char *solution, char alph)
+void		ft_free(char **tetriminos)
 {
-	size_t	i;
+	int		y;
 
-	i = 0;
-	while (solution[i])
+	y = 0;
+	while (tetriminos[y])
 	{
-		if (solution[i] == alph)
-			solution[i] = '.';
-		i++;
+		free(tetriminos[y]);
+		y++;
+	}
+	free(tetriminos);
+}
+
+void		reset_tetriminos(char *tetriminos)
+{
+	int		x;
+
+	x = 0;
+	while (tetriminos[x])
+	{
+		if (tetriminos[x] >= 'A' && tetriminos[x] <= 'Z')
+			tetriminos[x] += 32;
+		x++;
 	}
 }
 
-char	*ft_set_solution(char **tetriminos)
+void		reset_all_tetriminos(char **tetriminos)
+{
+	int		y;
+
+	y = 0;
+	while (tetriminos[y])
+	{
+		reset_tetriminos(tetriminos[y]);
+		y++;
+	}
+}
+
+char		*ft_set_solution(char **tetriminos)
 {
 	size_t	i;
 	size_t	y;
@@ -60,7 +85,7 @@ char	*ft_set_solution(char **tetriminos)
 	y *= 4;
 	while ((i * i) < y)
 		i++;
-	if (!(solution = (char *)malloc(sizeof(solution) * ((i + 1) * i))))
+	if (!(solution = (char *)malloc(sizeof(char) * ((i + 1) * i))))
 		return (NULL);
 	ft_init_solution(solution, i);
 	return (solution);

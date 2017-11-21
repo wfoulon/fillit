@@ -6,7 +6,7 @@
 /*   By: clonger <clonger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 11:14:37 by clonger           #+#    #+#             */
-/*   Updated: 2017/11/20 15:39:53 by clonger          ###   ########.fr       */
+/*   Updated: 2017/11/21 11:16:30 by clonger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ run fillit.\n");
 	if (!tetriminos)
 		error();
 	ft_parse(tetriminos);
-	solution = ft_set_solution(tetriminos);
-	ft_solve(tetriminos, solution);
+	if (!(solution = ft_solve(tetriminos)))
+		error();
 	ft_putstr(solution);
+	free(solution);
+	ft_free(tetriminos);
 	return (0);
 }
