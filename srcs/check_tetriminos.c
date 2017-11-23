@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_tetriminos.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clonger <clonger@student.42.fr>            +#+  +:+       +#+        */
+/*   By: wfoulon <wfoulon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 16:17:23 by clonger           #+#    #+#             */
-/*   Updated: 2017/11/21 14:51:15 by clonger          ###   ########.fr       */
+/*   Updated: 2017/11/22 14:17:56 by wfoulon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ size_t		ft_check_size(char *str, size_t i, size_t j)
 {
 	size_t	k;
 	size_t	l;
+	int		result;
 
 	k = 0;
 	l = 4;
+	result = 0;
 	while (str[i])
 	{
 		if (str[l] == '\n')
@@ -45,14 +47,13 @@ size_t		ft_check_size(char *str, size_t i, size_t j)
 		{
 			k++;
 			l++;
-			if ((j % k) != 0 || (j != 4 && k == 1))
-				return (1);
+			((j % k) != 0 || (j != 4 && k == 1)) ? result = 1 : result;
 		}
 		i++;
 	}
-	if (((j / k) != 4))
-		return (1);
-	return (0);
+	((j == 0) || (k == 0)) ? result = 1 : result;
+	((j / k) != 4) ? result = 1 : result;
+	return (result);
 }
 
 size_t		ft_nb_tetriminos(char *str)
