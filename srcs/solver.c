@@ -6,13 +6,13 @@
 /*   By: clonger <clonger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/18 13:49:27 by clonger           #+#    #+#             */
-/*   Updated: 2017/11/21 14:55:00 by clonger          ###   ########.fr       */
+/*   Updated: 2017/11/24 14:37:00 by clonger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-static char		*bigger(char **tetriminos, char *solution, size_t i)
+static char		*bigger(char **tetriminos, char *solution, int i)
 {
 	free(solution);
 	if (!(solution = ft_strnew((i + 2) * (i + 1))))
@@ -22,9 +22,9 @@ static char		*bigger(char **tetriminos, char *solution, size_t i)
 	return (solution);
 }
 
-static int		ft_fill_solution(char **tetriminos, char **sol, size_t y)
+static int		ft_fill_solution(char **tetriminos, char **sol, int y)
 {
-	size_t		i;
+	int			i;
 	char		*sol_cpy;
 
 	i = 0;
@@ -50,9 +50,9 @@ static int		ft_fill_solution(char **tetriminos, char **sol, size_t y)
 	return (0);
 }
 
-void			ft_init_solution(char *solution, size_t i)
+void			ft_init_solution(char *solution, int i)
 {
-	size_t		j;
+	int		j;
 
 	j = 0;
 	while (j < (i + 1) * i)
@@ -68,8 +68,8 @@ void			ft_init_solution(char *solution, size_t i)
 
 char			*ft_solve(char **tetriminos)
 {
-	size_t		y;
-	size_t		i;
+	int			y;
+	int			i;
 	char		*solution;
 
 	y = 0;

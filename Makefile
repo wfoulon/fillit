@@ -6,14 +6,14 @@
 #    By: clonger <clonger@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/20 11:09:30 by clonger           #+#    #+#              #
-#    Updated: 2017/11/20 12:54:58 by clonger          ###   ########.fr        #
+#    Updated: 2017/11/24 14:36:09 by clonger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	fillit
 SRC			=	srcs/main.c \
 				srcs/check_tetriminos.c \
-				srcs/ft_free_parse.c \
+				srcs/tools2.c \
 				srcs/ft_place.c \
 				srcs/tools.c \
 				srcs/solver.c

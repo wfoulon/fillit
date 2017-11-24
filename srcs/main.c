@@ -6,7 +6,7 @@
 /*   By: clonger <clonger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 11:14:37 by clonger           #+#    #+#             */
-/*   Updated: 2017/11/21 11:16:30 by clonger          ###   ########.fr       */
+/*   Updated: 2017/11/24 14:38:17 by clonger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ int		main(int argc, char **argv)
 run fillit.\n");
 		exit(EXIT_FAILURE);
 	}
-	fd = open(argv[1], O_RDONLY);
-	tetriminos = ft_read(fd);
+	if (((fd = open(argv[1], O_RDONLY)) <= 0))
+		error();
+	tetriminos = ft_read(fd, 0);
 	close(fd);
 	if (!tetriminos)
 		error();

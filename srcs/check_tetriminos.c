@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   check_tetriminos.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wfoulon <wfoulon@student.42.fr>            +#+  +:+       +#+        */
+/*   By: clonger <clonger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/15 16:17:23 by clonger           #+#    #+#             */
-/*   Updated: 2017/11/22 14:17:56 by wfoulon          ###   ########.fr       */
+/*   Updated: 2017/11/24 14:40:00 by clonger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-size_t		ft_check_char(char *str)
+int		ft_check_char(char *str)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (str[i] != '\0')
@@ -27,11 +27,11 @@ size_t		ft_check_char(char *str)
 	return (1);
 }
 
-size_t		ft_check_size(char *str, size_t i, size_t j)
+int		ft_check_size(char *str, int i, int j)
 {
-	size_t	k;
-	size_t	l;
-	int		result;
+	int	k;
+	int	l;
+	int	result;
 
 	k = 0;
 	l = 4;
@@ -52,14 +52,14 @@ size_t		ft_check_size(char *str, size_t i, size_t j)
 		i++;
 	}
 	((j == 0) || (k == 0)) ? result = 1 : result;
-	((j / k) != 4) ? result = 1 : result;
+	(((j / k) != 4) && (result != 1)) ? result = 1 : result;
 	return (result);
 }
 
-size_t		ft_nb_tetriminos(char *str)
+int		ft_nb_tetriminos(char *str)
 {
-	size_t	i;
-	size_t	count;
+	int	i;
+	int	count;
 
 	i = 0;
 	count = 0;
@@ -74,10 +74,10 @@ size_t		ft_nb_tetriminos(char *str)
 	return (count);
 }
 
-size_t		ft_enough_char(char *str)
+int		ft_enough_char(char *str)
 {
-	size_t	count;
-	size_t	i;
+	int	count;
+	int	i;
 
 	i = 0;
 	count = 0;
@@ -96,10 +96,10 @@ size_t		ft_enough_char(char *str)
 	return (0);
 }
 
-size_t		ft_valid_form(char *str, size_t i, size_t first)
+int		ft_valid_form(char *str, int i, int first)
 {
-	size_t	last;
-	size_t	count;
+	int	last;
+	int	count;
 
 	last = i + 16;
 	count = 0;

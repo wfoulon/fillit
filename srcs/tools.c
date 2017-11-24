@@ -6,7 +6,7 @@
 /*   By: clonger <clonger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/18 13:38:56 by clonger           #+#    #+#             */
-/*   Updated: 2017/11/21 14:57:09 by clonger          ###   ########.fr       */
+/*   Updated: 2017/11/24 14:34:56 by clonger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,19 @@ static int		is_valid(char *buf)
 	return (1);
 }
 
-char			**ft_read(int fd)
+char			**ft_read(int fd, int j)
 {
 	char		**tetriminos;
 	char		buf[547];
-	size_t		i;
-	size_t		j;
+	int			i;
 
-	i = 0;
-	j = 0;
 	if (!(tetriminos = (char **)malloc(sizeof(char *) * 27)))
 		return (NULL);
 	bzero_tetriminos(tetriminos);
-	if ((read(fd, buf, 546)) <= 0)
+	if ((i = read(fd, buf, 546)) <= 0)
 		return (NULL);
+	buf[i] = '\0';
+	i = 0;
 	if (!(is_valid(buf)))
 		error();
 	while (buf[i])

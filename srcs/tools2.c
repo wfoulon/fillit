@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_parse.c                                    :+:      :+:    :+:   */
+/*   tools2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clonger <clonger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 18:03:18 by clonger           #+#    #+#             */
-/*   Updated: 2017/11/21 14:47:41 by clonger          ###   ########.fr       */
+/*   Updated: 2017/11/24 14:36:35 by clonger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void		ft_parse(char **tetriminos)
 {
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 	char	alpha;
 
 	i = 0;
@@ -74,8 +74,8 @@ void		reset_all_tetriminos(char **tetriminos)
 
 char		*ft_set_solution(char **tetriminos)
 {
-	size_t	i;
-	size_t	y;
+	int		i;
+	int		y;
 	char	*solution;
 
 	i = 0;
