@@ -5,33 +5,33 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: clonger <clonger@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/07 17:58:08 by clonger           #+#    #+#             */
-/*   Updated: 2017/11/24 14:35:11 by clonger          ###   ########.fr       */
+/*   Created: 2017/11/11 14:37:46 by clonger           #+#    #+#             */
+/*   Updated: 2017/11/27 11:16:24 by clonger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FILLIT_H
 # define FILLIT_H
 
-# include <fcntl.h>
-# include <stdio.h>
+# define BUFFSIZE	567
+# define MSIZE		27
 # include "libft.h"
+# include <fcntl.h>
 
-int			ft_put_tetris(char **tetriminos, char *solution, int y, int i);
-char		*ft_set_solution(char **tetriminos);
-char		*ft_solve(char **tetriminos);
-char		**ft_read(int fd, int j);
-void		ft_init_solution(char *solution, int i);
-void		reset_all_tetriminos(char **tetriminos);
-void		reset_tetriminos(char *tetriminos);
-void		ft_parse(char **tetriminos);
-void		ft_free(char **tetriminos);
-void		display(char **tetriminos);
-void		error(void);
-int			ft_valid_form(char *str, int i, int first);
-int			ft_check_size(char *str, int i, int j);
-int			ft_nb_tetriminos(char *str);
-int			ft_enough_char(char *str);
-int			ft_check_char(char *str);
+char	**ft_read_file(int fd);
+int		main(int argc, char **argv);
+int		ft_errors(char *str);
+int		ft_set(char *tetri, int i, char *feelit, int index);
+int		ft_fill(char **feelit, char **tetri, int index, int posfeel);
+void	ft_start_sol(char *feelit, int j);
+char	*ft_solver(char **tetri);
+int		ft_place(char *tetri, char *feelit, int index, char a);
+char	*ft_bigger_square(char **tetri, char *feelit, int j);
+void	ft_reset(char *tetri);
+int		ft_links(char *str, int pieces);
+int		ft_formchecker(char *str);
+void	ft_mapping(char **tetri);
+int		ft_isalpha2(char c);
+void	ft_error(void);
 
 #endif
